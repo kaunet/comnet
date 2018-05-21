@@ -18,7 +18,6 @@
 	"devDependencies": {
 		"express-session": "^1.15.6",
 		"moment": "^2.22.1",
-		"mysql": "^2.15.0",
 		"promise-mysql": "^3.2.1"
 	}
 }
