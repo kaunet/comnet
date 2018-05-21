@@ -72,7 +72,7 @@
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
 				<div id="material-table">
 					<h1>최근 게시물</h1>
-					<h2>(업데이트: 2018-03-02 12:34)</h2>
+					<h2>(업데이트: <%= update %>)</h2>
 					
 					<!-- Responsive table starts here -->
 					<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -89,11 +89,11 @@
 								</tr>
 							</thead>
 							<tbody>
-
+								<% posts.forEach(post => { %>
 								<tr>
 									<td data-title="ID"><%= posts.id %></td>
 									<td data-title="Title">
-										<a href="/posts/<%= post.id %>"><%= posts.title %></a>
+										<a href="/post/<%= post.id %>"><%= posts.title %></a>
 									</td>
 									<td data-title="Author"><%= posts.author %></td>
 									<td data-title="Status">
@@ -196,9 +196,6 @@
 	<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
 	<script src="/material/assets/js/material-kit.js" type="text/javascript"></script>
 
-	<!-- Typed.js -->
-	<script src="/javascripts/typed.min.js" type="text/javascript"></script>
-
 	<script type="text/javascript">
 
 		$(document).ready(function(){
@@ -211,43 +208,7 @@
 
 				$(window).on('scroll', materialKitDemo.checkScrollForParallax);
 			}
-
-			var typed = new Typed('#subject', {
-				strings: ['Programming', 'Calculus', 'Linear Algebra', 'Physics', 'Differential Equation'],
-				typeSpeed: 250,
-				loop: true,
-				loopCount: Infinity
-			});
 		});
 	</script>
 </body>
 </html>
-<!-- 
-    <h1><%= title %></h1>
-    <table border="2">
-      <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>글쓴이</th>
-        <th>조회수</th>
-        <th>수정일</th>
-      </tr>
-      <%
-      for(var i = 0; i<rows.length; i++)
-      {
-      %>
-      <tr>
-        <td><%=rows[i].idx%></td>
-        <td><%=rows[i].title%></td>
-        <td><%=rows[i].writer%></td>
-        <td><%=rows[i].hit%></td>
-        <td><%=rows[i].moddate%></td>
-      </tr>
-      <%
-      }
-      %>
-
-    </table>
-  </body>
-</html>
- -->

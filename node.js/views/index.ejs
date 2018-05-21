@@ -104,7 +104,7 @@
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
 				<div id="material-table">
 					<h1>최근 게시물</h1>
-					<h2>(업데이트: 2018-03-02 12:34)</h2>
+					<h2>(업데이트: <%= update %>)</h2>
 					
 					<!-- Responsive table starts here -->
 					<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -125,7 +125,7 @@
 								<tr>
 									<td data-title="ID"><%= post.id %></td>
 									<td data-title="Title">
-										<a href="/posts/<%= post.id %>"><%= post.title %></a>
+										<a href="/post/<%= post.id %>"><%= post.title %></a>
 									</td>
 									<td data-title="Author"><%= post.author %></td>
 									<td data-title="Status">

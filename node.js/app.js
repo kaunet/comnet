@@ -7,13 +7,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 
 const index = require('./routes/index');
-const users = require('./routes/users');
-
-/*post*/
-
 const post = require('./routes/post');
-
-/*post*/
 
 const app = express();
 
@@ -40,13 +34,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
-app.use('/users', users);
-
-/*post*/
-
 app.use('/post', post); //app에 등록합니다 / post 로 요청이 왔을때 처리
-
-/*post*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

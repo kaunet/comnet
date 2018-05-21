@@ -30,7 +30,7 @@ router.get('/', async function(req, res, next) {
 				});
 			}
 
-			res.render('index', { title: 'Express', user: user, posts: recent_posts });
+			res.render('index', { user: user, posts: recent_posts, update: moment().format('YYYY-MM-DD HH:mm:ss') });
 		}
 		catch (error) {
 			throw error;
