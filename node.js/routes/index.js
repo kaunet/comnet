@@ -40,7 +40,7 @@ router.get('/', async function(req, res, next) {
 		}
 	}
 	catch (error) {
-		print('error:', error);
+		console.log('error:', error);
 		res.redirect('/');
 	}
 });

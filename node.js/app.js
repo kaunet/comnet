@@ -9,11 +9,11 @@ const bodyParser = require('body-parser');
 const index = require('./routes/index');
 const users = require('./routes/users');
 
-/*board*/
+/*post*/
 
-const board = require('./routes/board');
+const post = require('./routes/post');
 
-/*board*/
+/*post*/
 
 const app = express();
 
@@ -42,11 +42,11 @@ app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
 app.use('/users', users);
 
-/*board*/
+/*post*/
 
-app.use('/board',board); //app에 등록합니다 / board 로 요청이 왔을때 처리
+app.use('/post', post); //app에 등록합니다 / post 로 요청이 왔을때 처리
 
-/*board*/
+/*post*/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
