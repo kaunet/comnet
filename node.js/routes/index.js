@@ -14,7 +14,7 @@ router.get('/', async function(req, res, next) {
 	try {
 		var conn = await database.getConnection();
 		try {
-			let query = 'SELECT * FROM User';
+			let query = 'SELECT * FROM user';
 			console.log('query:', query);
 			let users = await conn.query(query);
 			console.log('users:', users);
