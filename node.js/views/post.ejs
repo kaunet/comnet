@@ -93,7 +93,8 @@
 								<tr>
 									<td data-title="ID"><%= posts.id %></td>
 									<td data-title="Title">
-										<a href="/post/<%= post.id %>"><%= posts.title %></a>
+										<a href="/post/<%= post.Postid %>/<%= post.id %>"><%= posts.title %><%= post.id %></a> 
+										<!-- post post id 와 그 file id 로 이동 -->
 									</td>
 									<td data-title="Author"><%= posts.author %></td>
 									<td data-title="Status">

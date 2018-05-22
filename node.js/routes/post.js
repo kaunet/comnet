@@ -14,11 +14,13 @@ router.use('/:id', async function(req, res) {
     try {
         var conn = await database.getConnection();
         try {
+
             // let query = 'SELECT * FROM post'; 
             // idx, title, writer, hit, DATE_FORMAT(moddate, "%Y/%m/%d %T) AS moddate FROM Board';
             // let posts = await conn.query(query);
             
             let recent_posts = [{
+                Postid: "1",
                 id: "1",
                 title: "Computer network so Strong!",
                 author: "Sung-Koo",
