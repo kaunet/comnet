@@ -32,6 +32,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
+app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));
 app.use('/logout', require('./routes/logout'));
 app.use('/post', post); //app에 등록합니다 / post 로 요청이 왔을때 처리

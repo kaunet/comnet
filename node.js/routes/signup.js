@@ -2,12 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const crypto = require('crypto');
-const moment = require('moment');
 
 const database = require('../utils/database');
 
-
-router.get('/', (req, res) => res.render('login', { year: moment().format('YYYY') }));
+router.get('/', (req, res) => {
+    res.render('signup');
+});
 
 router.post('/', async (req, res) => {
 
@@ -21,18 +21,15 @@ router.post('/', async (req, res) => {
 
     try {
         var conn = await database.getConnection();
-        let query = 'SELECT * FROM user WHERE ID = ? AND PW = ?';
-        let user = (await conn.query(query, [email, password]))[0];
-        if (!user) {
-            res.redirect('/login');
-        } else {
-            req.session.user = user;
-            res.redirect('/');
-        }
+        let query = 'INSERT INTO user SET ?';
+        let user = { ID: email, PW: password, Domain: 'Custom' };
+        await conn.query(query, user);
+        req.session.user = user;
+        res.redirect('/');
     }
     catch (error) {
         console.log('error:', error);
-        res.redirect('/login');
+        res.redirect('/signup');
     }
     finally {
         await database.releaseConnection(conn);

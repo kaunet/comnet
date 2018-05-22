@@ -91,13 +91,13 @@
 							<tbody>
 								<% posts.forEach(post => { %>
 								<tr>
-									<td data-title="ID"><%= posts.id %></td>
-									<td data-title="Title"><%= posts.title %></td>
-									<td data-title="Author"><%= posts.author %></td>
+									<td data-title="ID"><%= post.id %></td>
+									<td data-title="Title"><%= post.title %></td>
+									<td data-title="Author"><%= post.author %></td>
 									<td data-title="Status">
-										<span class="label label-success"><%= posts.status %></span>
+										<span class="label label-success"><%= post.status %></span>
 									</td>
-									<td data-title="Timestamp"><%= posts.timestamp %></td>
+									<td data-title="Timestamp"><%= post.timestamp %></td>
 								</tr>
 								<% }); %>
 							</tbody>

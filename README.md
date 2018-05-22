@@ -13,3 +13,6 @@
 * velopert (https://velopert.com/133)
 * zerocho (https://www.zerocho.com/category/NodeJS/post/5789e8d91c9e1ff02bdedad3)
 ### Wireshark (https://www.wireshark.org/)
+
+## Database Schema
+![Database Schema](https://github.com/kaunet/comnet/blob/master/node.js/public/schema.jpeg)
