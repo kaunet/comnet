@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+</html>
+
+<head>
+  <title>Board_Write</title>
+  <style>
+  @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+  body {
+  	font-family: 'Nanum Gothic', sans-serif;
+  }
+  </style> <!--나눔고딕-->
+
+  <script type="text/javascript">
+  	function move(url) {
+  		location.href=url;
+  	}
+  	function boardWriteCheck() {
+  		var form = document.BoardWriteForm;
+  		return true;
+  	}
+  </script>
+
+</head>
+
+<body>
+  <div id="Board">
+    <div class="container">
+      <div id="writer">
+      </div><!--게시글정보입력-->
+      <div id="File">
+      </div>
+    </div>
+  </div>
+  <div id="button">
+  </div>
+</body>
+
+<div id="Board">
+  <form name="BoardWriterForm" method="post" action="Board_Write_action.html"  onsubmit="return boardWriteCheck();">
+<div id="writer">
+  <table summary="게시글입력">
+
+    <colgroup>
+      <col width="10%">
+      <col width="80%">
+    </colgroup>
+    <caption><p>게시판 글쓰기</caption>
+    		<tr>
+				<td align="center">작성자</td>
+				<td><input type=text name=name size=10 maxlength=8></td>
+			  </tr>
+    		<tr>
+     			<td align="center">제 목</td>
+     			<td><input type=text name=title></td>
+    		</tr>
+        <tr>
+     			<td align="center">내 용</td>
+     			<td><textarea name=content rows ="10" cols="100"></textarea></td>
+    		</tr>
+    		<tr>
+     			<td align="center">비밀번호</td>
+     			<td><input type=password name=password size=15 maxlength=15></td>
+    		</tr>
+  </table>
+</div>
+
+<div id="File">
+  <table summary="파일입력">
+  <td align=center colspan=4 width=800px>
+	<hr size=1>
+  <tr> <!-- 파일 입력-->
+    <td align="center"><div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <!--<form class="well" action="Upload.php" method="post" enctype="multipart/form-data">-->
+          <div class="form-group">
+            <tr>
+            <td><label for="file">파일입력</label></td>
+            <td><input type="file" name="file1" id="file1" size=10 maxlength=10>
+              <td align="center">파일비밀번호</td>
+         			<td><input type=password name=f_password1 size=15 maxlength=15></td>
+            </tr>
+            <tr>
+            <td><label for="file">파일입력</label></td>
+            <td><input type="file" name="file2" id="file2" size=10 maxlength=10>
+              <td align="center">파일비밀번호</td>
+         			<td><input type=password name=f_password2 size=15 maxlength=15></td>
+            </tr>
+            <tr>
+            <td><label for="file">파일입력</label></td>
+            <td><input type="file" name="file3" id="file3" size=10 maxlength=10>
+              <td align="center">파일비밀번호</td>
+         			<td><input type=password name=f_password3 size=15 maxlength=15></td>
+            </tr>
+            <tr>
+              <td><label for="file">파일입력</label></td>
+              <td><input type="file" name="file4" id="file4" size=10 maxlength=10>
+                <td align="center">파일비밀번호</td>
+           			<td><input type=password name=f_password4 size=15 maxlength=15></td>
+            </tr>
+            <!-- <p class="help-block">Only jpg,jpeg,png and gif file with maximum size of 1 MB is allowed.</p> -->
+            </div>
+            <!--<input type="submit" class="btn btn-lg btn-primary" value="파일 업로드">-->
+          <!--</form>-->
+          </div>
+        </div>
+      </div></td>
+  </tr>
+</div>
+</div>
+
+<div id="button">
+  <table>
+  <tr>
+		<td align=center colspan=4 width=800px>
+		<hr size=1>
+		<div align="center">
+      <input type="submit" value="등록" >&nbsp;&nbsp;
+      <input type="button" value="뒤로" onclick="move('Board_List.html');"></div>
+		</div>
+		</td>
+	 </tr>
+ </table>
+ </div>

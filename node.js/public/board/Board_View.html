@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+</html>
+
+<head>
+  <title>Board_View</title>
+  <style>
+  @import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
+  body {
+  	font-family: 'Nanum Gothic', sans-serif;
+  }
+  </style> <!--나눔고딕-->
+</head>
+
+<body>
+  <div id="Board">
+    <div class="container">
+        <div id="header"> <!--글쓴이정보-->
+        </div>
+        <div id="main"> <!--게시글 내용-->
+        </div>
+    </div> <!--컨테이너 끝-->
+  </div><!--게시글 끝-->
+  <div id="button">
+  </div:><!--버튼-->
+  <div id="comment">
+    <div class="container">
+    </div><!--comment container-->
+  </div><!--댓글-->
+</body>
+
+<div id="header">
+  <form name="BoardWriterInform" method="post">
+  <table summary="게시물정보">
+    <tr>
+  		<td ><div align="center"><h3><b>게시물</b></h3></div></td>
+  	</tr>
+    <tr>
+      <td colspan=4>
+      <table border="1" summery="제목/작성자/작성날짜">
+      <tr>
+        <td align=center bgcolor=gray width=70px height=20px> 제목 </td>
+        <td align=left bgcolor=white width=396px colspan=3>제목입니다. </td>
+      </tr>
+      <tr>
+        <td align=center bgcolor=gray width=70px height=20px> 작성자 </td>
+        <td align=left bgcolor=white width=130px>작성자입니다. </td>
+        <td align=center bgcolor=gray width=90px height=20px> 작성시간 </td>
+        <td align=left bgcolor=white width=196px>
+          <div id="if_date" style="clear:both;float:left;color:#666;">
+						 <span> 2018-05-26 15:43:00</span>
+											</div></td>
+      </tr>
+    </table>
+    </td>
+    </tr>
+  </table>
+</div>
+
+<div id="main">
+  <form name="BoardMain" method="post">
+    <table summary="게시물내용">
+      <tr>
+        <td colspan=1>
+          <table border="2" summery="내용">
+          <tr>
+            <td align=center bgcolor=gray width=100px height=50px> 첨부파일 </td>
+            <td align=center bgcolor=white width=400px height=40%></td>
+          <tr>
+            <td align=left bgcolor=white width=500px height=400px colspan=2>
+                <br> 가나다라마바사 </br>
+                <br> 아자차카파타하 </br>
+            </td></tr>
+        </table>
+        </td></tr></table>
+  </form>
+</div>
+
+
+
+<div id="button">
+  <table>
+  <tr>
+		<td align=center colspan=2 width=512px>
+		<hr size=1>
+		<div align="center">
+		[<input type="button" value="목록" onclick="move('Board_List.html');"> |
+		<input type="button" value="수정" onclick="move('Board_Update.html');"> |
+		<input type="button" value="삭제" onclick="move('Board_Delete.html');">]<br>
+		</div>
+		</td>
+	 </tr>
+ </table>
+ </div>
