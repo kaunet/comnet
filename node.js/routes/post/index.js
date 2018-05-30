@@ -71,7 +71,6 @@ router.delete('/:id/comment', async function(req, res) {
         let query = 'DELETE FROM comment WHERE CommentId = ?';
         let result = await conn.query(query, commentId);
         console.log('result:', result);
-        console.log('commentId:', user.ID);
     }
     catch (error) {
         console.error(error);
@@ -83,4 +82,37 @@ router.delete('/:id/comment', async function(req, res) {
     res.json({ succeed: true, commentId: commentId });
 });
 
+router.post('/:id/comment', async function(req, res){
+    let user = req.session.user;
+    let id = req.params.id;
+    
+    let body = req.body.comment;
+
+    console.log('body:',body);
+
+    try{
+        var conn =await database.getConnection();
+        let query1 = 'SELECT * FROM post WHERE PostID = ?';
+        let post = (await conn.query(query1, id)).shift();
+
+        let query = 'INSERT INTO comment SET ?';
+        let comment ={
+            TimeStamp: new Date(),
+            PostID: post.PostID, 
+            ID: user.ID,
+            body: body
+        };
+
+        let result = await conn.query(query, comment);
+        console.log('result:',result);
+    }catch(error){
+        console.error(error);
+    }
+    finally{
+        await database.releaseConnection(conn);
+    }
+
+    res.json({succeed: true, comment: body});
+
+})
 module.exports = router;

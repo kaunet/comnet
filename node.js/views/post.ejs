@@ -144,11 +144,11 @@
 						<% }); %>
 						<!-- loop end -->
 
-						<form class="addComment checkValidation" action="" method="post" id="1">
-							<textarea class="cvRequired" type="text" name="comment[body]"
+						<form class="addComment checkValidation" action="" method="post">
+							<textarea class="cvRequired" type="text" id="commentText"
 								cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
 								placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
-							<button type="submit" <%= user?"":"disabled" %>>Comment</button>
+							<button type="button" id="1" <%= user?"":"disabled" %>>Comment</button>
 							<div id="cvErrTitle" class="message"></div>
 						</form>
 					</div>
@@ -253,9 +253,16 @@
 				}
 			});
 
-			$('#1').on('click',function(f){
-				var commentId = this.id.split('')
-				
+			$('#1').on('click',function(e){
+				e.preventDefault()
+				var comment = $("#commentText").val();
+				// return alert(comment);
+				if(confirm('댓글을 추가하시겠습니까?')){
+					$.post('/post/<%= post.PostID %>/comment' , {comment: comment}, function(snapshot){
+						var commentId = this.id.split('-').pop();
+						$('#comment-'+ commentId).add();
+					});
+				}
 			});
 		});
 	</script>
