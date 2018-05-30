@@ -24,7 +24,6 @@ router.get('/:id', async function(req, res) {
                 let query2 = 'SELECT * FROM comment WHERE PostID = ?';
                 post.comments = await conn.query(query2, post.PostID);
                 let parallel = post.comments.map(comment => {
-                    comment.id = comment.TimeStamp.getTime();
                     comment.TimeStamp = moment(comment.TimeStamp).format('YYYY-MM-DD HH:mm:ss');
                 });
                 await Promise.all(parallel);
@@ -58,8 +57,8 @@ router.delete('/:id/comment', async function(req, res) {
     
     try {
         var conn = await database.getConnection();
-        let query = 'DELETE FROM comment WHERE TimeStamp = ? AND ID = ?';
-        let result = await conn.query(query, [commentId, user.ID]);
+        let query = 'DELETE FROM comment WHERE CommentId = ?';
+        let result = await conn.query(query, commentId);
         console.log('result:', result);
     }
     catch (error) {
