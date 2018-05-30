@@ -249,8 +249,9 @@
 			});
 
 			$('#1').on('click',function(f){
-				var commentId = this.id.split('')
-				
+					$.post('/post/<%= post.PostID %>/comment' , function(snapshot){
+						$('.cvRequired').add();
+					});
 			});
 		});
 	</script>

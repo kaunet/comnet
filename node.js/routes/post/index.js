@@ -72,4 +72,25 @@ router.delete('/:id/comment', async function(req, res) {
     res.json({ succeed: true, commentId: commentId });
 });
 
+router.post('/:id/comment', async function(req, res){
+    let user = req.session.user;
+    let id = req.params.id;
+    let commentId = req.body.commentId;
+    console.log('commentId:',commentId);
+
+    try{
+        var conn =await database.getConnection();
+        let query = '';
+        let result = await conn.query(query, commentId);
+        console.log('result:',result);
+    }catch(error){
+        console.error(error);
+    }
+    finally{
+        await database.releaseConnection(conn);
+    }
+    
+    res.json({succeed: true, commentId: commentId});
+
+})
 module.exports = router;
