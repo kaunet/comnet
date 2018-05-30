@@ -12,8 +12,8 @@ router.get('/', async function(req, res) {
     } else {
         res.send(`
             <script type="text/javascript">
-                alert('ganene!');
-                window.location.href = 'http://localhost:3000';
+                alert('쟌넨~ 로그인^^!');
+                window.location.href = '/';
             </script>
         `);
     }
@@ -22,11 +22,32 @@ router.get('/', async function(req, res) {
 router.post('/', async function(req, res) {
 
     let user = req.session.user;
+    if (!user) return res.send(`
+        <script type="text/javascript">
+            alert('쟌넨~ 로그인^^!');
+            window.location.href = '/';
+        </script>
+    `);
 
-    console.log('user:', user);
-
-    res.json(req.body);
-    // res.redirect('/');
+    try {
+        var conn = await database.getConnection();
+        let query = 'INSERT INTO post SET ?';
+        let post = {
+            Time: new Date(),
+            body: req.body.content,
+            head: req.body.title,
+            category: 'CategoryX',
+            ID: user.ID
+        };
+        await conn.query(query, post);
+    }
+    catch (error) {
+        console.error(error);
+    }
+    finally {
+        await database.releaseConnection(conn);
+        res.redirect('/');
+    }
 });
 
 module.exports = router;

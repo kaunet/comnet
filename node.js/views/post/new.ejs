@@ -11,35 +11,12 @@
 		body {
   			font-family: 'Nanum Gothic', sans-serif;
 		}
-	</style><!--나눔고딕-->
-
-	<script type="text/javascript">
-  		function move(url) {
-  			location.href=url;
-  		}
-  		function boardWriteCheck() {
-  			var form = document.BoardWriteForm;
-			//alert(document.forms[0].title.value);
-  			return true;
-  		}
-	</script>
+	</style>
 </head>
 
 <body>
-	<div id="Board">
-		<div class="container">
-			<div id="writer">
-			</div><!--게시글정보입력-->
-			<div id="File">
-			</div>
-			<div id="button">
-			</div>
-		</div>
-	</div>
-</body>
-
 <div id="Board">
-	<form method="post" action="/post/new" enctype="multipart/form-data">
+	<form method="post" action="/post/new">
 		<div id="writer">
 			<table summary="게시글입력">
 				<colgroup>
@@ -61,10 +38,10 @@
 					<td align="center">내 용</td>
 					<td><textarea name="content" rows="10" cols="100"></textarea></td>
 				</tr>
-				<!--tr>
+				<tr>
 					<td align="center">비밀번호</td>
 					<td><input type="password" name="password" size="15" maxlength="15"></td>
-				</tr-->
+				</tr>
 			</table>
 		</div>
 
@@ -80,9 +57,9 @@
 										<div class="form-group">
 											<tr>
 												<td><label for="file">파일입력</label></td>
-												<td><input type="file" name="file1" id="file1" size="10" maxlength="10"></td>
+												<td><input type="file" name="file" size="10" maxlength="10"></td>
 												<td align="center">파일비밀번호</td>
-												<td><input type="password" name="f_password1" size="15" maxlength="15"></td>
+												<td><input type="password" name="fpassword" size="15" maxlength="15"></td>
 											</tr>
 										</div>
 									</div>
@@ -109,4 +86,5 @@
 		</div>
 	</form>
 </div>
+</body>
 </html>
