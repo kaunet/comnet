@@ -60,6 +60,7 @@ router.delete('/:id/comment', async function(req, res) {
         let query = 'DELETE FROM comment WHERE CommentId = ?';
         let result = await conn.query(query, commentId);
         console.log('result:', result);
+        console.log('commentId:', user.ID);
     }
     catch (error) {
         console.error(error);

@@ -139,7 +139,7 @@
 						<% }); %>
 						<!-- loop end -->
 
-						<form class="addComment checkValidation" action="" method="post">
+						<form class="addComment checkValidation" action="" method="post" id="1">
 							<textarea class="cvRequired" type="text" name="comment[body]"
 								cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
 								placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
@@ -246,6 +246,11 @@
 						$('#comment-'+commentId).remove();
 					});
 				}
+			});
+
+			$('#1').on('click',function(f){
+				var commentId = this.id.split('')
+				
 			});
 		});
 	</script>
