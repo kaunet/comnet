@@ -1,5 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"  pageEncoding="EUC-KR"%>
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+
+
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 </html>
 
@@ -19,6 +24,7 @@
   	}
   	function boardWriteCheck() {
   		var form = document.BoardWriteForm;
+      //alert(document.forms[0].title.value);
   		return true;
   	}
   </script>
@@ -32,14 +38,15 @@
       </div><!--게시글정보입력-->
       <div id="File">
       </div>
+      <div id="button">
+      </div>
     </div>
   </div>
-  <div id="button">
-  </div>
+
 </body>
 
 <div id="Board">
-  <form name="BoardWriterForm" method="post" action="Board_Write_action.html"  onsubmit="return boardWriteCheck();">
+  <form name="BoardWriterForm" method="post" action="Board_Write_action.ejs"  onsubmit="return boardWriteCheck();">
 <div id="writer">
   <table summary="게시글입력">
 
@@ -50,7 +57,7 @@
     <caption><p>게시판 글쓰기</caption>
     		<tr>
 				<td align="center">작성자</td>
-				<td><input type=text name=name size=10 maxlength=8></td>
+				<td><input type=text name=writer size=10 maxlength=8></td>
 			  </tr>
     		<tr>
      			<td align="center">제 목</td>
@@ -109,19 +116,21 @@
         </div>
       </div></td>
   </tr>
-</div>
-</div>
+  </div>
 
-<div id="button">
-  <table>
-  <tr>
-		<td align=center colspan=4 width=800px>
-		<hr size=1>
-		<div align="center">
-      <input type="submit" value="등록" >&nbsp;&nbsp;
-      <input type="button" value="뒤로" onclick="move('Board_List.html');"></div>
-		</div>
-		</td>
-	 </tr>
- </table>
- </div>
+  <div id="button">
+    <table>
+    <tr>
+  		<td align=center colspan=4 width=800px>
+  		<hr size=1>
+  		<div align="center">
+        <input type="submit" value="등록" >&nbsp;&nbsp;
+        <input type="button" value="뒤로" onclick="move('Board_List.ejs');"></div>
+  		</div>
+  		</td>
+  	 </tr>
+   </table>
+   </div>
+
+</form>
+</div>

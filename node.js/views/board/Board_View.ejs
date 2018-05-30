@@ -21,10 +21,11 @@
         </div>
         <div id="main"> <!--게시글 내용-->
         </div>
+        <div id="button">
+        </div:><!--버튼-->
     </div> <!--컨테이너 끝-->
   </div><!--게시글 끝-->
-  <div id="button">
-  </div:><!--버튼-->
+
   <div id="comment">
     <div class="container">
     </div><!--comment container-->
@@ -42,14 +43,16 @@
       <table border="1" summery="제목/작성자/작성날짜">
       <tr>
         <td align=center bgcolor=gray width=70px height=20px> 제목 </td>
-        <td align=left bgcolor=white width=396px colspan=3>제목입니다. </td>
+        <td align=left bgcolor=white width=200px colspan=2></td>
+        <td align=center bgcolor=gray width=70px height=20px> 조회수 </td>
+        <td align=left bgcolor=white width=70px colspan=1> </td>
       </tr>
       <tr>
         <td align=center bgcolor=gray width=70px height=20px> 작성자 </td>
-        <td align=left bgcolor=white width=130px>작성자입니다. </td>
-        <td align=center bgcolor=gray width=90px height=20px> 작성시간 </td>
-        <td align=left bgcolor=white width=196px>
-          <div id="if_date" style="clear:both;float:left;color:#666;">
+        <td align=left bgcolor=white width=150px></td>
+        <td align=center bgcolor=gray width=70px height=20px> 작성시간 </td>
+        <td align=left bgcolor=white width=196px colspan=2>
+          <div id="Time" style="clear:both;float:left;color:#666;">
 						 <span> 2018-05-26 15:43:00</span>
 											</div></td>
       </tr>
@@ -70,6 +73,7 @@
             <td align=center bgcolor=white width=400px height=40%></td>
           <tr>
             <td align=left bgcolor=white width=500px height=400px colspan=2>
+                <%= request.getParameter("content") %>
                 <br> 가나다라마바사 </br>
                 <br> 아자차카파타하 </br>
             </td></tr>
@@ -86,9 +90,9 @@
 		<td align=center colspan=2 width=512px>
 		<hr size=1>
 		<div align="center">
-		[<input type="button" value="목록" onclick="move('Board_List.html');"> |
-		<input type="button" value="수정" onclick="move('Board_Update.html');"> |
-		<input type="button" value="삭제" onclick="move('Board_Delete.html');">]<br>
+		[<input type="button" value="목록" onclick="move('Board_List.ejs');"> |
+		<input type="button" value="수정" onclick="move('Board_Update.ejs');"> |
+		<input type="button" value="삭제" onclick="move('Board_Delete.ejs');">]<br>
 		</div>
 		</td>
 	 </tr>
