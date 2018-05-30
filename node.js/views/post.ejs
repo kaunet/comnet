@@ -119,7 +119,7 @@
 				<div id="material-table">
 		
 					
-					<div class="comments">
+					<div class="comments" id="comment-container">
 						
 						<!-- commnet loop -->
 						<% post.comments.forEach(comment => { %>
@@ -143,15 +143,14 @@
 							</div>
 						<% }); %>
 						<!-- loop end -->
-
-						<form class="addComment checkValidation" action="" method="post">
-							<textarea class="cvRequired" type="text" id="commentText"
-								cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
-								placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
-							<button type="button" id="1" <%= user?"":"disabled" %>>Comment</button>
-							<div id="cvErrTitle" class="message"></div>
-						</form>
 					</div>
+					<form class="addComment checkValidation" action="" method="post">
+						<textarea class="cvRequired" type="text" id="commentText"
+							cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
+							placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
+						<button type="button" id="tomksg" <%= user?"":"disabled" %>>Comment</button>
+						<div id="cvErrTitle" class="message"></div>
+					</form>
 				</div>
 			</div>
 			<hr/>
@@ -244,23 +243,41 @@
 				});
 			};
 
-			$('.btn-delete-comment').on('click', function(e) {
+			function commentDeleter(e) {
 				var commentId = this.id.split('-').pop();
 				if (confirm('댓글을 삭제하시겠습니까?')) {
 					$.delete('/post/<%= post.PostID %>/comment', { commentId: parseInt(commentId) }, function(snapshot) {
 						$('#comment-'+commentId).remove();
 					});
 				}
-			});
+			}
 
-			$('#1').on('click',function(e){
+			$('.btn-delete-comment').on('click', commentDeleter);
+
+			$('#tomksg').on('click',function(e){
 				e.preventDefault()
 				var comment = $("#commentText").val();
-				// return alert(comment);
+				if (!comment) return alert('댓글을 입력해주세요.');
 				if(confirm('댓글을 추가하시겠습니까?')){
-					$.post('/post/<%= post.PostID %>/comment' , {comment: comment}, function(snapshot){
-						var commentId = this.id.split('-').pop();
-						$('#comment-'+ commentId).add();
+					$.post('/post/<%= post.PostID %>/comment' , { comment: comment }, function(snapshot){
+						$('#comment-container').append(
+							'<div class="comment" id="comment-' + snapshot.comment.CommentID + '">' +
+								'<div class="top">' +
+									'<b>' + snapshot.comment.ID + '</b>' +
+									'[' + snapshot.comment.TimeStamp + ']' +
+									'<button type="button" class="btn-delete-comment" id="comment-id-' + snapshot.comment.CommentID + '">' +
+										'x' +
+									'</button>' +
+								'</div>' +
+								'<div class="body">' +
+									snapshot.comment.body +
+								'</div>' +
+								'<hr/>' +
+							'</div>'
+						);
+						$('#commentText').val('');
+						$('.btn-delete-comment').unbind('click');
+						$('.btn-delete-comment').on('click', commentDeleter);
 					});
 				}
 			});
