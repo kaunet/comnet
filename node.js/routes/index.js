@@ -22,13 +22,6 @@ router.get('/', async function(req, res, next) {
 			});
 			await Promise.all(parallel);
 
-			for (let i = 2; i < 32; i++) {
-				let new_post = Object.assign({}, posts[0]);
-				new_post.Time = moment().format('YYYY-MM-DD HH:mm:ss');
-				new_post.PostID = i;
-				posts.push(new_post);
-			}
-
 			res.render('index', { user: user, posts: posts, timestamp: moment().format('YYYY-MM-DD HH:mm:ss') });
 		}
 		catch (error) {
@@ -39,7 +32,7 @@ router.get('/', async function(req, res, next) {
 		}
 	}
 	catch (error) {
-		print('error:', error);
+		console.error(error);
 		res.redirect('/');
 	}
 });

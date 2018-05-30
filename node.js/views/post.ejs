@@ -118,14 +118,14 @@
 						
 						<!-- commnet loop -->
 						<% post.comments.forEach(comment => { %>
-							<div class="comment" id="comment-<%= comment.id %>">
+							<div class="comment" id="comment-<%= comment.CommentID %>">
 							  	<div class="top">
 									<b><%= comment.ID %></b>
 									[<%= comment.TimeStamp %>]
 
 									<!-- if author is writer -->
 									<% if (user && user.ID == comment.ID) { %>
-									<button type="button" class="btn-delete-comment" id="comment-id-<%= comment.id %>">	
+									<button type="button" class="btn-delete-comment" id="comment-id-<%= comment.CommentID %>">	
 										x
 									</button>
 									<% } %>
