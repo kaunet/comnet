@@ -7,11 +7,12 @@ const moment = require('moment');
 const database = require('../utils/database');
 
 
-router.get('/', (req, res) => res.render('login', { year: moment().format('YYYY') }));
+router.get('/', (req, res) => res.render('login', { year: moment().format('YYYY'), from: req.query.from || '/' }));
 
 router.post('/', async (req, res) => {
 
     let { email, password } = req.body;
+    let from = req.query.from || '/';
 
     // 1 sec
     for (let i = 0; i < 100; i++) {
@@ -27,12 +28,12 @@ router.post('/', async (req, res) => {
             res.redirect('/login');
         } else {
             req.session.user = user;
-            res.redirect('/');
+            res.redirect(from);
         }
     }
     catch (error) {
         console.log('error:', error);
-        res.redirect('/login');
+        res.redirect(`/login?from=${from}`);
     }
     finally {
         await database.releaseConnection(conn);

@@ -64,7 +64,7 @@
 					</a>
 					<% } else { %>
 					<a href="/logout">
-						<i class="material-icons">assignment turned in</i> <%= user.name %>
+						<i class="material-icons">assignment turned in</i> <%= user.ID %>
 					</a>
 					<% } %>
 				</li>
@@ -134,7 +134,7 @@
 								<tr class="post-group-<%= Math.floor(index / 5) %>"<% if (index >= 5) { %> hidden<% } %>>
 									<td data-title="ID"><%= post.PostID %></td>
 									<td data-title="Title">
-										<a href="/posts/<%= post.PostID %>"><%= post.head %></a>
+										<a href="/post/<%= post.PostID %>"><%= post.head %></a>
 									</td>
 									<td data-title="Author"><%= post.ID %></td>
 									<td data-title="Category">
