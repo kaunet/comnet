@@ -4,7 +4,9 @@ const router = express.Router();
 const database = require('../utils/database');
 const moment = require('moment');
 
-router.use('/:id', async function(req, res) {
+router.use('/new', require('./new'));
+
+router.get('/:id', async function(req, res) {
 
     let user = req.session.user;
 
