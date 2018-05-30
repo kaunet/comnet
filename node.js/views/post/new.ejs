@@ -16,7 +16,7 @@
 
 <body>
 <div id="Board">
-	<form method="post" action="/post/new">
+	<form method="post" action="/post/new" enctype="multipart/form-data">
 		<div id="writer">
 			<table summary="게시글입력">
 				<colgroup>
@@ -45,7 +45,7 @@
 			</table>
 		</div>
 
-		<div id="File">
+		<div>
 			<table summary="파일입력">
 				<td align="center" colspan="4" width="800px">
 					<hr size="1">
@@ -56,8 +56,10 @@
 									<div class="col-lg-12">
 										<div class="form-group">
 											<tr>
-												<td><label for="file">파일입력</label></td>
-												<td><input type="file" name="file" size="10" maxlength="10"></td>
+												<td>파일입력</td>
+												<td>
+													<input type="file" id="file" name="file" size="10" maxlength="10">
+												</td>
 												<td align="center">파일비밀번호</td>
 												<td><input type="password" name="fpassword" size="15" maxlength="15"></td>
 											</tr>
@@ -86,5 +88,31 @@
 		</div>
 	</form>
 </div>
+
+<!--script type="text/javascript" src="/javascripts/jquery.min.js">
+<script type="text/javascript" src="/javascripts/jquery.form.min.js">
+<script type="text/javascript" src="/javascripts/jquery.validate.min.js">
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#btn-upload').on('click', function(e) {
+			$('#file-hidden').trigger('click');
+		});
+		$('#file-hidden').on('change', function(e) {
+			alert('change');
+			(function() {
+				$('#ajax-form').ajaxForm({
+					url: window.location.origin + '/post/file',
+					method: 'POST',
+					enctype: 'multipart/form-data',
+					success: function(result) {
+						$('#url').val(result.url);
+					}
+				});
+				$('#ajax-form').submit();
+			})();
+		})
+	});
+</script-->
+
 </body>
 </html>

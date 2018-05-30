@@ -3,7 +3,7 @@ switch (process.platform) {
 	case 'win32':
 	case 'darwin':
 	case 'linux':
-        AWS.config.loadFromPath('./credential.json');
+        AWS.config.loadFromPath('./utils/credentials.json');
         break;
 }
 const s3 = new AWS.S3();

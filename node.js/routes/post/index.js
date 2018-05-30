@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const database = require('../../utils/database');
+const multer = require('../../utils/s3').upload;
 const moment = require('moment');
 
 router.use('/new', require('./new'));
@@ -27,6 +28,9 @@ router.get('/:id', async function(req, res) {
                     comment.TimeStamp = moment(comment.TimeStamp).format('YYYY-MM-DD HH:mm:ss');
                 });
                 await Promise.all(parallel);
+                let query3 = 'SELECT * FROM file WHERE PostID = ?';
+                post.file = (await conn.query(query3, id)).shift();
+                console.log('post.file:', post.file);
                 await conn.commit();
                 res.render('post', { user: user, post: post, timestamp: moment().format('YYYY-MM-DD HH:mm:ss') });
             } else {
@@ -46,6 +50,13 @@ router.get('/:id', async function(req, res) {
         await database.releaseConnection(conn);
     }
 });
+
+/*
+router.post('/file', multer.single('file'), function(req, res) {
+    console.log('req.file:', req.file);
+    res.json({ succeed: true, url: req.file.location });
+});
+*/
 
 router.delete('/:id/comment', async function(req, res) {
 

@@ -103,6 +103,11 @@
 	    	<div class="container">
 
 				<div class="row">
+					<% if (post.file) { %>
+					<div class="col-md-8">
+						<a href="<%= post.file.url %>"><%= post.file.url %></a>
+					</div>
+					<% } %>
 					<div class="col-md-12">
 						<%= post.body %>
 					</div>
