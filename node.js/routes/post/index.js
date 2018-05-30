@@ -58,9 +58,10 @@ router.delete('/:id/comment', async function(req, res) {
     
     try {
         var conn = await database.getConnection();
-        let query = 'DELETE FROM comment WHERE TimeStamp = ? AND ID = ?';
-        let result = await conn.query(query, [commentId, user.ID]);
+        let query = 'DELETE FROM comment WHERE ID = ?';
+        let result = await conn.query(query, [user.ID]);
         console.log('result:', result);
+        console.log('commentId:', user.ID);
     }
     catch (error) {
         console.error(error);
