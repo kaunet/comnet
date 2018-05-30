@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const database = require('../utils/database');
+const database = require('../../utils/database');
 const moment = require('moment');
 
 router.use('/new', require('./new'));
