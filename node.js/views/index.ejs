@@ -6,7 +6,7 @@
 	<link rel="icon" type="image/*" href="/favicon.ico">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-	<title>Comnet</title>
+	<title>Nethub</title>
 
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
 
@@ -24,6 +24,12 @@
 
 	<!-- Material Table -->
 	<link href="/stylesheets/material-table.less" rel="stylesheet"/>
+
+	<style>
+		.hide {
+			display: none;
+		}
+	</style>
 </head>
 
 <body class="index-page">
@@ -42,8 +48,8 @@
 	                <div class="logo">
 	                    <img src="/favicon.ico" alt="Comnet Logo" data-placement="bottom" data-html="true">
 	                </div>
-	                <div class="brand" id="subject">
-	                    Comnet
+	                <div class="brand">
+	                    Nethub
 	                </div>
 				</div>
 	      	</a>
@@ -89,8 +95,11 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">
-						<h1>Material Kit.</h1>
-						<h3>A Badass Bootstrap UI Kit based on Material Design.</h3>
+						<h1>Nethub</h1>
+						<h3>Computer network term project.</h3>
+						<div class="row">
+							<h5 id="subject"></h5>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -104,7 +113,7 @@
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
 				<div id="material-table">
 					<h1>최근 게시물</h1>
-					<h2>(업데이트: <%= update %>)</h2>
+					<h2>(업데이트: <%= timestamp %>)</h2>
 					
 					<!-- Responsive table starts here -->
 					<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
@@ -116,22 +125,22 @@
 									<th>ID</th>
 									<th>Title</th>
 									<th>Author</th>
-									<th>Status</th>
+									<th>Category</th>
 									<th>Timestamp</th>
 								</tr>
 							</thead>
 							<tbody>
-								<% posts.forEach(post => { %>
-								<tr>
-									<td data-title="ID"><%= post.id %></td>
+								<% posts.forEach((post, index) => { %>
+								<tr class="post-group-<%= Math.floor(index / 5) %>"<% if (index >= 5) { %> hidden<% } %>>
+									<td data-title="ID"><%= post.PostID %></td>
 									<td data-title="Title">
-										<a href="/post/<%= post.id %>"><%= post.title %></a>
+										<a href="/post/<%= post.PostID %>"><%= post.head %></a>
 									</td>
-									<td data-title="Author"><%= post.author %></td>
-									<td data-title="Status">
-										<span class="label label-success"><%= post.status %></span>
+									<td data-title="Author"><%= post.ID %></td>
+									<td data-title="Category">
+										<span class="label label-success"><%= post.category %></span>
 									</td>
-									<td data-title="Timestamp"><%= post.timestamp %></td>
+									<td data-title="Timestamp"><%= post.Time %></td>
 								</tr>
 								<% }); %>
 							</tbody>
@@ -141,15 +150,14 @@
 				<!-- -->
 
 				<!-- Pagination -->
+				<% let total_page = Math.ceil(posts.length / 5); %>
 				<div class="col-md-12">
-					<ul class="pagination pagination-primary">
-						<li><a href="javascript:void(0);">< prev</a></li>
-						<li class="active"><a href="javascript:void(0);">1</a></li>
-						<li><a href="javascript:void(0);">2</a></li>
-						<li><a href="javascript:void(0);">3</a></li>
-						<li><a href="javascript:void(0);">4</a></li>
-						<li><a href="javascript:void(0);">5</a></li>
-						<li><a href="javascript:void(0);">next ></a></li>
+					<ul class="pagination pagination-primary" id="pagination">
+						<li value="prev"><a>< prev</a></li>
+						<% for (let i = 1; i <= total_page; i++) { %>
+						<li class="page-group-<%= Math.floor((i - 1) / 5) %><% if (i == 1) { %> active<% } %><% if (i > 5) { %> hide<% } %>" id="page-<%= i %>" value="<%= i %>"><a><%= i %></a></li>
+						<% } %>
+						<li value="next"><a>next ></a></li>
 					</ul>
 				</div>
 				<!-- -->
@@ -1397,7 +1405,7 @@
 	            </ul>
 	        </nav>
 	        <div class="copyright pull-right">
-	            &copy; 2016, made with <i class="material-icons">favorite</i> by Creative Tim for a better web.
+	            &copy; <%= timestamp.split('-')[0] %>, made with <i class="material-icons">favorite</i> by Creative Tim for a better web.
 	        </div>
 	    </div>
 	</footer>
@@ -1461,6 +1469,57 @@
 				typeSpeed: 250,
 				loop: true,
 				loopCount: Infinity
+			});
+
+			var number_of_posts = parseInt('<%= posts.length %>');
+			var number_of_groups = Math.ceil(number_of_posts / 5);
+			var currentPage = 1;
+
+			function updatePostView(page_number) {
+				for (var i = 0; i < number_of_groups; i++) $('.post-group-'+i).attr('hidden', true);
+				$('.post-group-'+(page_number - 1)).attr('hidden', false);
+				for (var i = 0; i < number_of_groups; i++) if (!$('.page-group-'+i).hasClass('hide')) $('.page-group-'+i).addClass('hide');
+				var page_group = Math.floor((page_number - 1) / 5);
+				$('.page-group-'+page_group).removeClass('hide');
+			}
+
+			$('#pagination li').on('click', function(e) {
+				var value = this.attributes.value.nodeValue;
+				var active = $('#pagination li.active').attr('value');
+				if (value == 'prev') {
+					if (currentPage == 1) return;
+					var currentGroup = Math.floor((currentPage - 1) / 5);
+					var prevGroup = 0;
+					var prevPage = 1;
+					if (currentGroup != 0) {
+						prevGroup = currentGroup - 1;
+						prevPage = (currentGroup * 5) || 1;
+					}
+					currentPage = prevPage;
+					$('#pagination li.active').removeClass('active');
+					$('.page-group-'+currentGroup).attr('hidden', true);
+					$('.page-group-'+prevGroup).attr('hidden', false);
+					$('#page-'+prevPage).addClass('active');
+				} else if (value == 'next') {
+					if (currentPage == number_of_groups) return;
+					var currentGroup = Math.floor((currentPage - 1) / 5);
+					var nextGroup = currentGroup + 1;
+					var nextPage = (nextGroup * 5) + 1;
+					if (currentGroup == Math.floor((number_of_groups - 1) / 5)) {
+						nextGroup = currentGroup;
+						nextPage = Math.min(Math.ceil(number_of_posts / 5), number_of_groups);
+					}
+					currentPage = nextPage;
+					$('#pagination li.active').removeClass('active');
+					$('.page-group-'+currentGroup).attr('hidden', true);
+					$('.page-group-'+nextGroup).attr('hidden', false);
+					$('#page-'+nextPage).addClass('active');
+				} else {
+					currentPage = value;
+					$('#pagination li.active').removeClass('active');
+					$(this).addClass('active');
+				}
+				updatePostView(currentPage);
 			});
 		});
 	</script>

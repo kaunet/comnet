@@ -47,17 +47,50 @@
 	                </div>
 				</div>
 	      	</a>
-	    </div>
+		</div>
+		
+		<div class="collapse navbar-collapse" id="navigation-index">
+			<ul class="nav navbar-nav navbar-right">
+				<li>
+					<% if (!user) { %>
+					<a href="/login?from=/post/<%= post.PostID %>">
+						<i class="material-icons">assignment ind</i> Login
+					</a>
+					<% } else { %>
+					<a href="/logout">
+						<i class="material-icons">assignment turned in</i> <%= user.ID %>
+					</a>
+					<% } %>
+				</li>
+				<li>
+					<a rel="tooltip" title="Follow us on Twitter" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" class="btn btn-white btn-simple btn-just-icon">
+						<i class="fa fa-twitter"></i>
+					</a>
+				</li>
+				<li>
+					<a rel="tooltip" title="Like us on Facebook" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank" class="btn btn-white btn-simple btn-just-icon">
+						<i class="fa fa-facebook-square"></i>
+					</a>
+				</li>
+				<li>
+					<a rel="tooltip" title="Follow us on Instagram" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank" class="btn btn-white btn-simple btn-just-icon">
+						<i class="fa fa-instagram"></i>
+					</a>
+				</li>
+
+			</ul>
+		</div>
+
 	</div>
 </nav>
 <!-- End Navbar -->
 <div class="wrapper">
-	<div class="header header-filter" style="background-image: url('/material/assets/img/bg2.jpeg');">
+	<div class="header-filter" style="background-image: url('/material/assets/img/bg2.jpeg');">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">
-						<h1>Material Kit.</h1>
+						<h1><%= post.head %></h1>
 						<h3>A Badass Bootstrap UI Kit based on Material Design.</h3>
 					</div>
 				</div>
@@ -69,99 +102,52 @@
 		<div class="section section-basic">
 	    	<div class="container">
 
+				<div class="row">
+					<div class="col-md-12">
+						<%= post.body %>
+					</div>
+				</div>
+
+				<hr/>
+
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
 				<div id="material-table">
-				
-					<h1>게시물(POST) 이름(작업중)</h1>
-					<h2>(업데이트: <%= update %>)</h2>
-					
-					<!-- Responsive table starts here -->
-					<!-- For correct display on small screens you must add 'data-title' to each 'td' in your table -->
-					<div class="table-responsive-vertical shadow-z-1">
-						<!-- Table starts here -->
-						<table id="table" class="table table-hover table-mc-purple">
-							<thead>
-								<tr>
-									<th>ID</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- <% posts.forEach(post => { %> -->
-								<!-- <tr> -->
-									<!-- <td data-title="ID"><%= post.id %></td>
-									<td data-title="Title"><%= post.title %></td>
-									<td data-title="Author"><%= post.author %></td>
-									<td data-title="Status">
-										<span class="label label-success"><%= post.status %></span>
-									</td>
-									<td data-title="Timestamp"><%= post.timestamp %></td> -->
-								<!-- </tr> -->
-								<!-- <% }); %> -->
-							</tbody>
-						</table>
-					</div>
-
-				<!-- comments -->
-					
-					<hr/>
+		
 					
 					<div class="comments">
-						<h4>Comments (<%= commentnum %>)</h4>
 						
 						<!-- commnet loop -->
-						<% if(comments) { %> 
-						  <% comments.forEach(comments => { %>
-							<div class="comment">
+						<% post.comments.forEach(comment => { %>
+							<div class="comment" id="comment-<%= comment.id %>">
 							  	<div class="top">
-									<b><%= comments.id %></b>
-									(<%= comments.timestamp %>)
-									
-									<!-- if author is writer -->
-									<%// if(user.ID == comments.id) { %>
-								  	<form class="delete"  method="post"
-										action="/posts/<%=posts.id%>/">
-										<button type="button" onclick="confirm('Your comment will be deleted')?this.parentElement.submit():null;">	
-											x
-										</button>
-								 	 </form>
-									<!-- if end -->
+									<b><%= comment.ID %></b>
+									[<%= comment.TimeStamp %>]
 
+									<!-- if author is writer -->
+									<% if (user && user.ID == comment.ID) { %>
+									<button type="button" class="btn-delete-comment" id="comment-id-<%= comment.id %>">	
+										x
+									</button>
+									<% } %>
+									<!-- if end -->
 							  	</div>
-								<div class="body"><%= comments.commentbody %></div>
+								<div class="body">
+									<%= comment.body %>
+								</div>
 								<hr/>
 							</div>
-						  	<% }) %>
-						<% } %>
+						<% }); %>
 						<!-- loop end -->
 
 						<form class="addComment checkValidation" action="" method="post">
-						
-						<textarea class="cvRequired" type="text" name="comment[body]"
-							cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
-							placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
-						  <button type="submit" <%= user?"":"disabled" %>>Comment</button>
-						  <div id="cvErrTitle" class="message"></div>
+							<textarea class="cvRequired" type="text" name="comment[body]"
+								cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
+								placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
+							<button type="submit" <%= user?"":"disabled" %>>Comment</button>
+							<div id="cvErrTitle" class="message"></div>
 						</form>
 					</div>
-				  
-
 				</div>
-				<!-- -->
-
-				<!-- Pagination -->
-				<div class="col-md-12">
-					<ul class="pagination pagination-primary">
-						<li><a href="javascript:void(0);">< prev</a></li>
-						<li class="active"><a href="javascript:void(0);">1</a></li>
-						<li><a href="javascript:void(0);">2</a></li>
-						<li><a href="javascript:void(0);">3</a></li>
-						<li><a href="javascript:void(0);">4</a></li>
-						<li><a href="javascript:void(0);">5</a></li>
-						<li><a href="javascript:void(0);">next ></a></li>
-					</ul>
-				</div>
-				<!-- -->
-
 			</div>
 			<hr/>
 	    </div>
@@ -233,21 +219,34 @@
 	<!--  Plugin for the Datepicker, full documentation here: http://www.eyecon.ro/bootstrap-datepicker/ -->
 	<script src="/material/assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
 
-	<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
-	<script src="/material/assets/js/material-kit.js" type="text/javascript"></script>
-
 	<script type="text/javascript">
 
 		$(document).ready(function(){
-			// the body of this function is in assets/material-kit.js
-			materialKit.initSliders();
             window_width = $(window).width();
 
-            if (window_width >= 992){
-                big_image = $('.wrapper > .header');
+			$.delete = function(url, data, callback, type) {
+				if ($.isFunction(data)) {
+					var type = type || callback,
+						callback = data,
+						data = {};
+				}
+				return $.ajax({
+					url: url,
+					type: 'DELETE',
+					success: callback,
+					data: data,
+					contentType: type
+				});
+			};
 
-				$(window).on('scroll', materialKitDemo.checkScrollForParallax);
-			}
+			$('.btn-delete-comment').on('click', function(e) {
+				var commentId = this.id.split('-').pop();
+				if (confirm('댓글을 삭제하시겠습니까?')) {
+					$.delete('/post/<%= post.PostID %>/comment', { commentId: parseInt(commentId) }, function(snapshot) {
+						$('#comment-'+commentId).remove();
+					});
+				}
+			});
 		});
 	</script>
 </body>
