@@ -13,7 +13,7 @@ router.get('/', async function(req, res) {
     } else {
         res.send(`
             <script type="text/javascript">
-                alert('쟌넨~ 로그인^^!');
+                alert('로그인이 필요합니다.');
                 window.location.href = '/login';
             </script>
         `);
@@ -25,7 +25,7 @@ router.post('/', multer.single('file'), async function(req, res) {
     let user = req.session.user;
     if (!user) return res.send(`
         <script type="text/javascript">
-            alert('쟌넨~ 로그인^^!');
+            alert('로그인이 필요합니다.');
             window.location.href = '/login';
         </script>
     `);
@@ -51,8 +51,6 @@ router.post('/', multer.single('file'), async function(req, res) {
                 console.log('req.file.location:', req.file.location);
                 let query2 = 'SELECT PostID FROM post ORDER BY PostID DESC';
                 let postIds = await conn.query(query2);
-                // let query2 = 'SELECT * FROM post WHERE Time = ?';
-                // let _post = await conn.query(query2, timestamp);
                 let postId = 1;
                 if (postIds.length > 0) postId = postIds[0].PostID;
                 let query3 = 'INSERT INTO file SET ?';
@@ -69,6 +67,7 @@ router.post('/', multer.single('file'), async function(req, res) {
         }
     }
     catch (error) {
+        await conn.rollback();
         console.error(error);
     }
     finally {

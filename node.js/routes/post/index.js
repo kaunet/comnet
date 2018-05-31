@@ -43,6 +43,7 @@ router.get('/:id', async function(req, res) {
 		}
 	}
 	catch (error) {
+		await conn.rollback();
 		console.log('error:', error);
 		res.redirect('/');
 	}
@@ -71,15 +72,15 @@ router.delete('/:id/comment', async function(req, res) {
 		let query = 'DELETE FROM comment WHERE CommentId = ?';
 		let result = await conn.query(query, commentId);
 		console.log('result:', result);
+		res.json({ succeed: true, commentId: commentId });
 	}
 	catch (error) {
 		console.error(error);
+		res.json({ succeed: false });
 	}
 	finally {
 		await database.releaseConnection(conn);
 	}
-
-	res.json({ succeed: true, commentId: commentId });
 });
 
 router.post('/:id/comment', async function(req, res){
