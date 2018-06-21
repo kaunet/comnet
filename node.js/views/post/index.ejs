@@ -90,7 +90,7 @@
 			<div class="row">
 				<div class="col-md-8 col-md-offset-2">
 					<div class="brand">
-						<h1><%= post.head %></h1>
+						<h1>Open Source File Project</h1>
 						<h3>A Badass Bootstrap UI Kit based on Material Design.</h3>
 					</div>
 				</div>
@@ -100,24 +100,35 @@
 
 	<div class="main main-raised">
 		<div class="section section-basic">
+			
+
 	    	<div class="container">
+				<div class ="row">
+					<h2><strong>제목:<strong><%= post.head %></h2>
+					<hr>
+				</div>
 
 				<div class="row">
+					<div class="col-md-12">
+						<%= post.body %>
+					</div>
+					
 					<% if (post.file) { %>
 					<div class="col-md-8">
 						<a href="<%= post.file.url %>"><%= post.file.url %></a>
 					</div>
 					<% } %>
-					<div class="col-md-12">
-						<%= post.body %>
-					</div>
+					
 				</div>
 
 				<hr/>
 
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
 				<div id="material-table">
-		
+						<div class ="row">
+								<h3><strong>댓글</h3>
+								<hr>
+						</div>
 					
 					<div class="comments" id="comment-container">
 						
