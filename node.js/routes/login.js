@@ -24,9 +24,11 @@ router.post('/', async (req, res) => {
 
     try {
         var conn = await database.getConnection();
-        let query = 'SELECT * FROM user WHERE ID = ? AND PW = ?';
-        let user = (await conn.query(query, [email, password]))[0];
-        if (!user) {
+        // let query = 'SELECT * FROM user WHERE ID = ? AND PW = ?';
+        let query = 'SELECT * FROM user WHERE ID = ?';
+        // let user = (await conn.query(query, [email, password]))[0];
+        let user = (await conn.query(query, email))[0];
+        if (!user || user.PW != password) {
             res.render('login', { message: '아이디 혹은 비밀번호가 틀렸습니다.', from: from });
             // res.redirect('/login');
         } else {
