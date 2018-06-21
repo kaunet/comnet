@@ -77,7 +77,7 @@
 							<td align="center" colspan="4" width="800px">
 								<hr size="1">
 								<div align="center">
-									<input type="submit" value="등록" >&nbsp;&nbsp;
+									<input type="submit" id="btn-submit" value="등록" disabled>&nbsp;&nbsp;
 									<input type="button" value="뒤로" onclick="move('Board_List.ejs');">
 								</div>
 							</td>
@@ -89,8 +89,17 @@
 	</form>
 </div>
 
-<!--script type="text/javascript" src="/javascripts/jquery.min.js">
-<script type="text/javascript" src="/javascripts/jquery.form.min.js">
+<script type="text/javascript" src="/javascripts/jquery.min.js"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#file').change(function(e) {
+			$('#btn-submit').attr('disabled', false);
+		});
+	});
+</script>
+
+<!--script type="text/javascript" src="/javascripts/jquery.form.min.js">
 <script type="text/javascript" src="/javascripts/jquery.validate.min.js">
 <script type="text/javascript">
 	$(document).ready(function() {
