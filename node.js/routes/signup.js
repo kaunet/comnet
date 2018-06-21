@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
     try {
         var conn = await database.getConnection();
         let query = 'INSERT INTO user SET ?';
-        let user = { ID: email, PW: password, Domain: 'Custom' };
+        let user = { ID: email, PW: password };
         await conn.query(query, user);
         req.session.user = user;
         res.redirect('/');

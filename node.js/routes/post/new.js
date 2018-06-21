@@ -39,7 +39,7 @@ router.post('/', multer.single('file'), async function(req, res) {
             let query1 = 'INSERT INTO post SET ?';
             let timestamp = new Date();
             let post = {
-                Time: timestamp,
+                time: timestamp,
                 body: req.body.content,
                 head: req.body.title,
                 category: 'CategoryX',

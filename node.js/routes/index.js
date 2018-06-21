@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
 		let posts = await conn.query(query);
 
 		let parallel = posts.map(post => {
-			post.Time = moment(post.Time).format('YYYY-MM-DD HH:mm:ss');
+			post.time = moment(post.time).format('YYYY-MM-DD HH:mm:ss');
 		});
 		await Promise.all(parallel);
 
