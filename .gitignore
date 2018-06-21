@@ -1,4 +1,5 @@
 node_modules/
 
 node.js/utils/dbconfig.json
+node.js/utils/_dbconfig.json
 node.js/utils/credentials.json

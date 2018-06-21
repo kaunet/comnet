@@ -35,7 +35,7 @@ router.get('/:id', async function(req, res) {
 				if (post.password) {
 					if (post.password != req.query.password) {
 						await conn.commit();
-						await database.releaseConnection(conn);
+						// await database.releaseConnection(conn);
 						return res.render('post/auth', { id: id });
 					}
 				}

@@ -14,7 +14,7 @@ router.get('/', async function(req, res) {
         res.send(`
             <script type="text/javascript">
                 alert('로그인이 필요합니다.');
-                window.location.href = '/login';
+                window.location.href = '/login?from=/post/new';
             </script>
         `);
     }
@@ -26,7 +26,7 @@ router.post('/', multer.single('file'), async function(req, res) {
     if (!user) return res.send(`
         <script type="text/javascript">
             alert('로그인이 필요합니다.');
-            window.location.href = '/login';
+            window.location.href = '/login?from=post/new';
         </script>
     `);
 

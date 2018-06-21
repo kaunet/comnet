@@ -25,9 +25,9 @@ app.use(session({
 	resave: false,
 	saveUninitialized: true,
 	cookie: {
-		maxAge: 3600 * 30,
+		maxAge: 60 * 30 * 1000,
 		httpOnly: true
-	}
+	}, rolling: true
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
