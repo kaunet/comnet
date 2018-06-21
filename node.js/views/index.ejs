@@ -138,6 +138,7 @@
 								<tr class="post-group-<%= Math.floor(index / 5) %>"<% if (index >= 5) { %> hidden<% } %>>
 									<td data-title="ID"><%= post.PostID %></td>
 									<td data-title="Title">
+										<% if (post.password) { %><i class="fa fa-lock"></i><% } %>
 										<a href="/post/<%= post.PostID %>"><%= post.head %></a>
 									</td>
 									<td data-title="Author"><%= post.ID %></td>

@@ -43,7 +43,8 @@ router.post('/', multer.single('file'), async function(req, res) {
                 body: req.body.content,
                 head: req.body.title,
                 category: 'CategoryX',
-                ID: user.ID
+                ID: user.ID,
+                password: req.body.password || null
             };
             await conn.query(query1, post);
             if (req.file.location) {

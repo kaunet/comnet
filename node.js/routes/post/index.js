@@ -9,10 +9,18 @@ router.use('/new', require('./new'));
 
 router.get('/:id', async function(req, res) {
 
-	let user = req.session.user;
-
 	let id = req.params.id;
 	if (!id) return res.redirect('/');
+
+	let user = req.session.user;
+	if (!user) return res.redirect(`/login?from=/post/${id}`);
+
+	let passwordEncoded = parseInt(req.query.encoded) || 0;
+	if (req.query.password && !passwordEncoded) {
+		return res.redirect(`/post/${id}?password=${encodeURIComponent(req.query.password)}&encoded=1`);
+	}
+
+	console.log('password:', req.query.password);
 
 	try {
 		var conn = await database.getConnection();
@@ -22,6 +30,16 @@ router.get('/:id', async function(req, res) {
 			let post = (await conn.query(query1, id)).shift();
 			
 			if (post) {
+
+				// password
+				if (post.password) {
+					if (post.password != req.query.password) {
+						await conn.commit();
+						await database.releaseConnection(conn);
+						return res.render('post/auth', { id: id });
+					}
+				}
+
 				let query2 = 'SELECT * FROM comment WHERE PostID = ?';
 				post.comments = await conn.query(query2, post.PostID);
 				let parallel = post.comments.map(comment => {

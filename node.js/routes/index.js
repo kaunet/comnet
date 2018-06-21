@@ -5,7 +5,6 @@ const database = require('../utils/database');
 
 const moment = require('moment');
 
-/* GET home page. */
 router.get('/', async function(req, res, next) {
 
 	let user = req.session.user;
