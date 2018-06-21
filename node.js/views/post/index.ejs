@@ -103,31 +103,34 @@
 			
 
 	    	<div class="container">
-				<div class ="row">
-					<h2><strong>제목:<strong><%= post.head %></h2>
-					<hr>
+				<div class ="row" style="text-align:left;vertical-align:top;">
+					<h2><strong>#<%= post.PostID %> Post <%= post.head %></h2> </strong>
+					
 				</div>
 
-				<div class="row">
+				<div class="row" style="border-top:1px solid; border-bottom:1px solid; padding:20px;">
 					<div class="col-md-12">
-						<%= post.body %>
+						<h3><strong>File Info</strong> </h3>
+						<h4><%= post.body %> </h4>
+						<br>
 					</div>
 					
 					<% if (post.file) { %>
 					<div class="col-md-8">
+							<h4><strong>File Name :</strong></h4>
 						<a href="<%= post.file.url %>"><%= post.file.url %></a>
+					</br>
+					</br>
 					</div>
 					<% } %>
-					
+						
 				</div>
 
-				<hr/>
-
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
-				<div id="material-table">
+				<div id="material-table"  >
 						<div class ="row">
-								<h3><strong>댓글</h3>
-								<hr>
+						
+							<h3><strong>Comments</strong></h3>
 						</div>
 					
 					<div class="comments" id="comment-container">
@@ -146,11 +149,11 @@
 									</button>
 									<% } %>
 									<!-- if end -->
-							  	</div>
-								<div class="body">
+							  	</div>	
+								<div class="body" >
 									<%= comment.body %>
 								</div>
-								<hr/>
+								<hr>
 							</div>
 						<% }); %>
 						<!-- loop end -->
