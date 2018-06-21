@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
         await conn.beginTransaction();
         try {
             let preQuery = 'SELECT * FROM user WHERE ID = ? AND PW = ?';
-            let user = (await conn.query(query, [email, password]))[0];
+            let user = (await conn.query(preQuery, [email, password]))[0];
             if (!user) {
                 let query = 'SELECT * FROM user WHERE ID = ?';
                 user = (await conn.query(query, email))[0];
