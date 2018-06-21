@@ -12,17 +12,26 @@ router.get('/', async function(req, res, next) {
 
 	try {
 		var conn = await database.getConnection();
-		let query = 'SELECT * FROM post ORDER BY Time DESC';
-		let posts = await conn.query(query);
+		await conn.beginTransaction();
+		try {
+			let query = 'SELECT * FROM post ORDER BY Time DESC';
+			let posts = await conn.query(query);
 
-		let parallel = posts.map(post => {
-			post.time = moment(post.time).format('YYYY-MM-DD HH:mm:ss');
-		});
-		await Promise.all(parallel);
+			let parallel = posts.map(async (post, index) => {
+				post.time = moment(post.time).format('YYYY-MM-DD HH:mm:ss');
+				let _query = 'SELECT * FROM comment WHERE PostID = ?';
+				posts[index].comments = (await conn.query(_query, post.PostID)).length;
+			});
+			await Promise.all(parallel);
 
-		res.render('index', { user: user, posts: posts, timestamp: moment().format('YYYY-MM-DD HH:mm:ss') });
+			res.render('index', { user: user, posts: posts, timestamp: moment().format('YYYY-MM-DD HH:mm:ss') });
+		}
+		catch (error) {
+			throw error;
+		}
 	}
 	catch (error) {
+		await conn.rollback();
 		console.error(error);
 		res.redirect('/');
 	}

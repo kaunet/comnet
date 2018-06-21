@@ -103,63 +103,64 @@
 			
 
 	    	<div class="container">
-				<div class ="row">
-					<h2><strong>제목:<strong><%= post.head %></h2>
-					<hr>
-				</div>
+				<div class ="row" style="text-align:left;vertical-align:top;">
+					<h2><strong>#<%= post.PostID %> Post <%= post.head %></h2> </strong>
+ 				</div>
 
-				<div class="row">
+				<div class="row" style="border-top:1px solid; border-bottom:1px solid; padding:20px;">
 					<div class="col-md-12">
-						<%= post.body %>
+						<h3><strong>File Info</strong> </h3>
+						<h4><%= post.body %> </h4>
+						<br>
 					</div>
 					
 					<% if (post.file) { %>
+					<hr/>
 					<div class="col-md-8">
-						<a href="<%= post.file.url %>"><%= post.file.url %></a>
+						<i class="material-icons">attach_file</i>
+						<strong>File Name : </strong><a href="<%= post.file.url %>"><%= post.file.url %></a>
 					</div>
 					<% } %>
 					
 				</div>
 
-				<hr/>
-
 				<!-- Material Design Table (https://codepen.io/anon/pen/qYYLzj) -->
 				<div id="material-table">
-						<div class ="row">
-								<h3><strong>댓글</h3>
-								<hr>
-						</div>
+					<div class ="row">
+						<h3><strong>댓글</h3>
+						<hr>
+					</div>
 					
 					<div class="comments" id="comment-container">
 						
 						<!-- commnet loop -->
 						<% post.comments.forEach(comment => { %>
-							<div class="comment" id="comment-<%= comment.CommentID %>">
-							  	<div class="top">
-									<b><%= comment.ID %></b>
-									[<%= comment.TimeStamp %>]
+						<div class="comment" id="comment-<%= comment.CommentID %>">
+							<div class="top">
+								<b><%= comment.ID %></b>
+								[<%= comment.TimeStamp %>]
 
-									<!-- if author is writer -->
-									<% if (user && user.ID == comment.ID) { %>
-									<button type="button" class="btn-delete-comment" id="comment-id-<%= comment.CommentID %>">	
-										x
-									</button>
-									<% } %>
-									<!-- if end -->
-							  	</div>
-								<div class="body">
-									<%= comment.body %>
-								</div>
-								<hr/>
+								<!-- if author is writer -->
+								<% if (user && user.ID == comment.ID) { %>
+								<button type="button" class="btn btn-danger btn-xs btn-delete-comment" id="comment-id-<%= comment.CommentID %>">	
+									x
+								</button>
+								<% } %>
+								<!-- if end -->
 							</div>
+							<div class="body">
+								<%= comment.body %>
+							</div>
+							<hr/>
+						</div>
 						<% }); %>
 						<!-- loop end -->
 					</div>
 					<form class="addComment checkValidation" action="" method="post">
 						<textarea class="cvRequired" type="text" id="commentText"
 							cvRqErrMsg="comments is empty." cvRqErrTo="#cvErrTitle"
-							placeholder="<%= user?"Add comment here":"Please login to make a comment" %>" <%= user?"":"disabled" %> ></textarea>
-						<button type="button" id="tomksg" <%= user?"":"disabled" %>>Comment</button>
+							placeholder="<%= user ? '댓글 내용' : '로그인하세요.' %>" <%= user?"":"disabled" %> ></textarea>
+						<button type="button" class="btn btn-default btn-md" style="vertical-align: top;" id="tomksg"<% if (!user) { %> disabled<% } %>>댓글달기</button>
 						<div id="cvErrTitle" class="message"></div>
 					</form>
 				</div>
@@ -194,7 +195,7 @@
 	            </ul>
 	        </nav>
 	        <div class="copyright pull-right">
-	            &copy; 2016, made with <i class="material-icons">favorite</i> by Creative Tim for a better web.
+	            &copy; <%= new Date().getFullYear() %>, made with <i class="material-icons">favorite</i> by <a href="https://github.com/kaunet">kaunet</a> for a better web.
 	        </div>
 	    </div>
 	</footer>
@@ -276,7 +277,7 @@
 								'<div class="top">' +
 									'<b>' + snapshot.comment.ID + '</b>' +
 									'[' + snapshot.comment.TimeStamp + ']' +
-									'<button type="button" class="btn-delete-comment" id="comment-id-' + snapshot.comment.CommentID + '">' +
+									'<button type="button" class="btn btn-danger btn-xs btn-delete-comment" id="comment-id-' + snapshot.comment.CommentID + '">' +
 										'x' +
 									'</button>' +
 								'</div>' +

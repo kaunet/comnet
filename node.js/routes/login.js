@@ -16,9 +16,6 @@ router.post('/', async (req, res) => {
     let { email, password } = req.body;
     let from = req.query.from || '/';
 
-    console.log('email:', email);
-    console.log('password:', password);
-
     // 1 sec
     for (let i = 0; i < 100; i++) {
         const hmac = crypto.createHmac('sha256', 'secret');

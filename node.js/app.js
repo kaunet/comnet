@@ -31,6 +31,13 @@ app.use(session({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+	res.setTimeout(30 * 1000, function() {	// 6s
+		res.status(408).end('Request Timeout');
+	});
+	next();
+});
+
 app.use('/', index);
 app.use('/signup', require('./routes/signup'));
 app.use('/login', require('./routes/login'));

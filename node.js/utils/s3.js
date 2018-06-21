@@ -15,6 +15,7 @@ const upload = multer({
         bucket: 'kaunet',
         acl: 'public-read-write',
         key: function(req, file, callback) {
+            console.log('file.originalname:', file.originalname);
             callback(null, Date.now() + '.' + file.originalname.split('.').pop());
         }
     })

@@ -45,11 +45,12 @@
 	    	</button>
 	    	<a href="/">
 	        	<div class="logo-container">
-	                <div class="logo">
-	                    <img src="/favicon.ico" alt="Comnet Logo" data-placement="bottom" data-html="true">
-	                </div>
-	                <div class="brand">
-	                    Nethub
+					<div class="row">
+	                <!--div class="logo"-->
+						<div class="brand">
+							Nethub
+		                </div>
+	                    <img src="/favicon.ico" style="width:32px;height:32px;" data-placement="bottom" data-html="true">
 	                </div>
 				</div>
 	      	</a>
@@ -139,7 +140,7 @@
 									<td data-title="ID"><%= post.PostID %></td>
 									<td data-title="Title">
 										<% if (post.password) { %><i class="fa fa-lock"></i><% } %>
-										<a href="/post/<%= post.PostID %>"><%= post.head %></a>
+										<a href="/post/<%= post.PostID %>"><%= post.head %><% if (post.comments > 0) { %> (<%= post.comments %>)<% } %></a>
 									</td>
 									<td data-title="Author"><%= post.ID %></td>
 									<td data-title="Category">
