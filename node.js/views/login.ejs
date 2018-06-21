@@ -71,6 +71,12 @@
 										<input type="password" placeholder="Password..." class="form-control" name="password"/>
 									</div>
 								</div>
+
+								<div class="row">
+									<div class="col-lg-8 col-lg-offset-2">
+										<h6 style="color: red;"><%= message %></h6>
+									</div>
+								</div>
 								<div class="row">
 									<div class="col-md-8 col-md-offset-4">
 										<button class="btn btn-primary">Login</button>
@@ -109,7 +115,7 @@
 						</ul>
 		            </nav>
 		            <div class="copyright pull-right">
-		                &copy; <%= year %>, made with <i class="fa fa-heart heart"></i> by <a href="https://github.com/kaunet" target="_blank">Kaunet</a>
+		                &copy; <%= new Date().getFullYear() %>, made with <i class="fa fa-heart heart"></i> by <a href="https://github.com/kaunet" target="_blank">Kaunet</a>
 		            </div>
 		        </div>
 		    </footer>

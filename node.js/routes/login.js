@@ -7,7 +7,9 @@ const moment = require('moment');
 const database = require('../utils/database');
 
 
-router.get('/', (req, res) => res.render('login', { year: moment().format('YYYY'), from: req.query.from || '/' }));
+router.get('/', function(req, res) {
+    res.render('login', { message: '', year: moment().format('YYYY'), from: req.query.from || '/' })
+});
 
 router.post('/', async (req, res) => {
 
@@ -25,7 +27,8 @@ router.post('/', async (req, res) => {
         let query = 'SELECT * FROM user WHERE ID = ? AND PW = ?';
         let user = (await conn.query(query, [email, password]))[0];
         if (!user) {
-            res.redirect('/login');
+            res.render('login', { message: '아이디 혹은 비밀번호가 틀렸습니다.', from: from });
+            // res.redirect('/login');
         } else {
             req.session.user = user;
             res.redirect(from);
